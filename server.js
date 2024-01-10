@@ -51,16 +51,16 @@ app.put('/testimonials/:id', (req, res) => { //ok5
     }
 });
 
-app.delete('/testimonials/:id'), (req, res) => {
+app.delete('/testimonials/:id', (req, res) => { //ok
     const id = parseInt(req.params.id);
     const testToDelete = db.find(item => item.id === id);
     if(testToDelete){
-        db = db.filter(item => item.id !== id);
-        res.json({ message: 'OK' , deletedTestimonial: testToDelete});
+        db.filter(item => item.id !== id);
+        res.json({ message: 'OK' });
     }else {
         res.json({ message: 'Something wrong'});
     }
-};
+});
 
 app.use((req, res) => { // ok7
     res.status(404).send({ message: '404 not found...' });
