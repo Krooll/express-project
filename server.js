@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('./public/db');
 const path = require('path');
+const uuid = require('uuid');
 
 const app = express();
 
@@ -12,14 +13,36 @@ app.get('/testimonials', (req, res) => {
 });
 
 app.post('/testimonials', (req, res) => {
-    const { author, text, id } = req.body;
-    if(author && text && id) {
-        res.json('contact', { message: 'OK' });
+    const randomId = uuid.v4();
+    const { author, text } = req.body;
+    if(author && text ) {
+        const newTest = { id: randomId, author, text }
+        res.json('contact', newTest, { message: 'OK' });
       }
       else {
         res.json('contact', { message: 'Something went wrong!' });
       }
 });
+
+app.put('/testimonials/:id', (req, res) => {
+    const { author, text } = req.body;
+    const id = req.params.id;
+    const activeTest = db.find(item => item.id === id);
+    if(activeTest){
+        activeTest.author = author;
+        activeTest.text = text;
+        res.json('testimonials/:id', { message: 'OK', activeTest });
+    }else{
+        res.json('testimonials/:id', { message: 'Something went wrong!' });
+    }
+});
+
+app.delete('/testimonials/:id'), (req, res) => {
+    const id = req.params.id;
+    const deleteTest = db.filter(item => item.id !== id);
+
+    res.json('testimonials/:id', { message: 'OK',  deleteTest });
+};
 
 app.get('/testimonials/:id', (req, res) => {
     const id = req.params.id;
