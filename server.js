@@ -28,12 +28,12 @@ app.put('/testimonials/:id', (req, res) => {
     const { author, text } = req.body;
     const id = req.params.id;
     const activeTest = db.find(item => item.id === id);
-    if(activeTest){
+    if (activeTest) {
         activeTest.author = author;
         activeTest.text = text;
-        res.json('testimonials/:id', { message: 'OK', activeTest });
-    }else{
-        res.json('testimonials/:id', { message: 'Something went wrong!' });
+        res.json({ message: 'Testimonial updated', updatedTestimonial: activeTest });
+    } else {
+        res.json({ message: 'Testimonial not found' });
     }
 });
 
@@ -56,6 +56,10 @@ app.get('/testimonials/random', (req, res) => {
     const randomTestimonial = db[random];
 
     res.json('testimonials/random', { randomTestimonial });
+});
+
+app.use((req, res) => {
+    res.status(404).send('404 not found...');
 });
 
 app.listen(8000, () => {
