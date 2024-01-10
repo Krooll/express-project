@@ -1,15 +1,13 @@
 const express = require('express');
-const db = require('./public/db');
-const path = require('path');
 const uuid = require('uuid');
+const db = require('./public/db');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json(path.join(__dirname, '/public')));
 
 app.get('/testimonials', (req, res) => {
-    res.json('testimonials', { testimonials: db });
+    res.json({ testimonials: db });
 });
 
 app.post('/testimonials', (req, res) => {
@@ -17,10 +15,10 @@ app.post('/testimonials', (req, res) => {
     const { author, text } = req.body;
     if(author && text ) {
         const newTest = { id: randomId, author, text }
-        res.json('contact', newTest, { message: 'OK' });
+        res.json( newTest, { message: 'OK' });
       }
       else {
-        res.json('contact', { message: 'Something went wrong!' });
+        res.json({ message: 'Something went wrong!'});
       }
 });
 
@@ -31,7 +29,7 @@ app.put('/testimonials/:id', (req, res) => {
     if (activeTest) {
         activeTest.author = author;
         activeTest.text = text;
-        res.json({ message: 'Testimonial updated', updatedTestimonial: activeTest });
+        res.json({ message: 'Testimonial updated', activeTest });
     } else {
         res.json({ message: 'Testimonial not found' });
     }
@@ -39,27 +37,28 @@ app.put('/testimonials/:id', (req, res) => {
 
 app.delete('/testimonials/:id'), (req, res) => {
     const id = req.params.id;
-    const deleteTest = db.filter(item => item.id !== id);
-
-    res.json('testimonials/:id', { message: 'OK',  deleteTest });
+    const testToDelete = db.findIndex(item => item.id === id);
+    const deleteTest = db.splice(testToDelete, 1);
+    res.json({ message: 'OK',  deleteTest });
 };
 
 app.get('/testimonials/:id', (req, res) => {
     const id = req.params.id;
     const activeId = db.find(item => item.id === id);
 
-    res.json('testimonials/:id', { activeId });
+    res.json({ activeId });
 });
 
 app.get('/testimonials/random', (req, res) => {
     const random = Math.floor(Math.random() * db.length);
+    console.log('random', random);
     const randomTestimonial = db[random];
 
-    res.json('testimonials/random', { randomTestimonial });
+    res.json({ randomTestimonial });
 });
 
 app.use((req, res) => {
-    res.status(404).send('404 not found...');
+    res.status(404).send({ message: '404 not found...' });
 });
 
 app.listen(8000, () => {
