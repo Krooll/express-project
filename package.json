@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "express": "4.17.1",
+    "yarn": "^1.22.21"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
