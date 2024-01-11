@@ -1,6 +1,6 @@
 import { Alert, Progress } from 'reactstrap';
 
-import Concerts from './../Concerts/Concerts';
+import Concerts from '../Concerts/Concerts';
 import { useSelector, useDispatch } from 'react-redux';
 import { getConcerts, getRequest, loadConcertsRequest } from '../../../redux/concertsRedux';
 import { useEffect } from 'react';

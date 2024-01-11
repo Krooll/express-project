@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 
-import MainLayout from './components/layout/MainLayout/MainLayout';
+import MainLayout from './components/layout/MainLayout/MainLayout.js';
 
 // import routes
-import Home from './components/pages/Home/HomePage';
-import NotFound from './components/pages/NotFound/NotFoundPage';
-import Prices from './components/pages/Prices/PricesPage';
+import Home from './components/pages/Home/HomePage.js';
+import NotFound from './components/pages/NotFound/NotFoundPage.js';
+import Prices from './components/pages/Prices/PricesPage.js';
 import Order from './components/pages/Order/OrderPage.js';
 
 const App = () => (

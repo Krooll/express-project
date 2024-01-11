@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addSeatRequest, getRequests } from '../../../redux/seatsRedux';
 
 import './OrderTicketForm.scss';
-import SeatChooser from './../SeatChooser/SeatChooser';
+import SeatChooser from '../SeatChooser/SeatChooser';
 
 const OrderTicketForm = () => {
   const dispatch = useDispatch();
