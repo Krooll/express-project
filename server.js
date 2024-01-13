@@ -1,10 +1,10 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
 const path = require('path');
 
 const app = express();
 
-// import routes
+// Import routes
 const testimonialsRoutes = require('./routes/testimonials');
 const concertsRoutes = require('./routes/concerts');
 const seatsRoutes = require('./routes/seats');
@@ -15,15 +15,15 @@ app.use(express.json());
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
 app.use('/api', seatsRoutes);
-app.use((req, res) => { 
-    res.status(404).send({ message: '404 not found...' });
-});
-app.use(express.static(path.join(__dirname, '/clients/build')));
+
+app.use(express.static(path.join(__dirname, 'clients/build')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/clients/build/index.html'));
+  res.sendFile(path.join(__dirname, 'clients/build', 'index.html'));
 });
 
-app.listen(process.env.PORT || 8000, () => {
-  console.log('Server is running on port: 8000');
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
 });
