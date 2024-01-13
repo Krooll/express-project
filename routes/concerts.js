@@ -4,7 +4,7 @@ const db = require('../public/db');
 const uuid = require('uuid');
 
 router.route('/concerts').get((req, res) => { // ok1
-    res.json({ testimonials: db.concerts });
+    res.json(db.concerts);
 });
 
 router.route('/concerts/:id').get((req, res) => { // ok3 
