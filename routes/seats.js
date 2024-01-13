@@ -21,7 +21,7 @@ router.route('/seats').post((req, res) => { // ok4
     const reservedSeat = db.seats.some(item => item.day === day && item.seat === seat);
 
     if(!reservedSeat) {
-        const newSeat = { id: randomId, author, text }
+        const newSeat = { id: randomId, day, seat }
         db.seats.push(newSeat);
         res.status(200).json( { newSeat, message: 'Seat reserved' });
       }
